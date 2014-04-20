@@ -61,7 +61,7 @@ public class Core {
 				System.out.println("\nWarning: This may take some time.");
 				String file_data = "";
 				for (int i=0; i<bomb.length; i++) {
-					file_data+=bomb[i];
+					file_data+=bomb[i]+"\n ";
 				}
 				Analysis.writeOut(file_data);
 				System.out.println("\n");
