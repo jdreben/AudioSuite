@@ -31,7 +31,7 @@ package javazoom.jl.decoder;
  */
 public class SampleBuffer extends Obuffer
 {
-  private short[] 		buffer;
+  private double[] 		buffer;
   private int[] 		bufferp;
   private int 			channels;
   private int			frequency;
@@ -41,7 +41,7 @@ public class SampleBuffer extends Obuffer
    */
   public SampleBuffer(int sample_frequency, int number_of_channels)
   {
-  	buffer = new short[OBUFFERSIZE];
+  	buffer = new double[OBUFFERSIZE];
 	bufferp = new int[MAXCHANNELS];
 	channels = number_of_channels;
 	frequency = sample_frequency;
@@ -61,7 +61,7 @@ public class SampleBuffer extends Obuffer
 	  return this.frequency;
   }
   
-  public short[] getBuffer()
+  public double[] getBuffer()
   {
 	return this.buffer;  
   }
