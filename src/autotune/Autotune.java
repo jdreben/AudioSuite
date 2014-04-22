@@ -6,7 +6,7 @@ import javazoom.jl.converter.*;
 import autotune.PitchShift;
 
 public class Autotune {
-	private short[] data;
+	private double[] data;
 	private SampleBuffer sample;
 	private Header head;
 	private int pitchToShift;
@@ -16,7 +16,7 @@ public class Autotune {
 		//pitchToShift = determinePitchToShift(h, samp);
 		pitchToShift = 1;
 		sample = samp;
-		data = samp.getBuffer();
+		data = ShortAndDouble(samp.getBuffer());
 		length = samp.getBufferLength();
 		head = h;
 		//System.out.println("Got here");
@@ -41,12 +41,13 @@ public class Autotune {
 	public SampleBuffer getTuned () {
 		PitchShift shifty = new PitchShift(Obuffer.OBUFFERSIZE);
 		//System.out.println("Got here");
-		double[] doubleData = ShortAndDouble(data);
+		//double[] doubleData = ShortAndDouble(data);
 		//System.out.println("Got here");
 		shifty.setPitchShift(this.pitchToShift);
 		//System.out.println("Got here");
-		shifty.smbPitchShift(doubleData, doubleData, pitchToShift, length);
-		System.out.println("Got here");
+		System.out.println(shifty.gOutFIFO);
+		shifty.smbPitchShift(data, data, 0, length);
+		
 		SampleBuffer rewritten = new SampleBuffer(sample.getSampleFrequency(),sample.getChannelCount());
 		return rewritten;
 		
