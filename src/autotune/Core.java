@@ -14,14 +14,14 @@ public class Core {
 				if (head == null) { eof=true; }
 				Decoder dec = new Decoder();
 				SampleBuffer samples = (SampleBuffer)dec.decodeFrame(head, bitStream); 
-
-				System.out.println(samples.getBuffer());
-				
+				for (int i=0;i<samples.getBufferLength();i++) {
+				System.out.print("before mod : "); System.out.print(samples.getBuffer()[i]+"\n");
+				}
 				// implement autotune on frame
 				Autotune tune = new Autotune(head, samples);
 				SampleBuffer samp = (SampleBuffer)tune.getTuned();    
 
-				System.out.println(samp.getBuffer());
+				System.out.print("after mod : "); System.out.print(samp.getBuffer()[1]+"\n");
 				/*
 				 *  unsure how to convert from buffer back to mp3 file 
 				 */

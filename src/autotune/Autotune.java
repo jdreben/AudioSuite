@@ -6,7 +6,7 @@ import javazoom.jl.converter.*;
 import autotune.PitchShift;
 
 public class Autotune {
-	private double[] data;
+	private short[] data;
 	private SampleBuffer sample;
 	private Header head;
 	private int pitchToShift;
