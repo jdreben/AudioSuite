@@ -37,8 +37,11 @@ public class Autotune {
 	} */
 	public SampleBuffer getTuned () {
 		PitchShift shifty = new PitchShift(Obuffer.OBUFFERSIZE);
+		
+		double[] doubleData = ShortAndDouble(data);
+		
 		shifty.setPitchShift(this.pitchToShift);
-		shifty.smbPitchShift(data, data, pitchToShift, sample.getBufferLength());
+		shifty.smbPitchShift(doubleData, doubleData, pitchToShift, sample.getBufferLength());
 		SampleBuffer rewritten = new SampleBuffer(sample.getSampleFrequency(),sample.getChannelCount());
 		return rewritten;
 		//shifty.setOversampling(4);
@@ -48,4 +51,12 @@ public class Autotune {
 	//	shifty.smbPitchShift(/*relevant data from sample and header */);
 	//	return (/*relevant data from sample and header now changed */);
 	}
+	private static double[] ShortAndDouble(short[] array) {
+		   // shortarray = array;
+		    double[] doublearray = new double[array.length];
+		    for (int i = 0; i < array.length; i++) {
+		        doublearray[i] = (double)(array[i]) / 32768;
+		    }
+		    return doublearray;
+		}
 }
