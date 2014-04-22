@@ -10,13 +10,16 @@ public class Autotune {
 	private SampleBuffer sample;
 	private Header head;
 	private int pitchToShift;
+	private int length;
 
 	public Autotune(Header h, SampleBuffer samp) {
 		//pitchToShift = determinePitchToShift(h, samp);
 		pitchToShift = 1;
 		sample = samp;
 		data = samp.getBuffer();
+		length = samp.getBufferLength();
 		head = h;
+		//System.out.println("Got here");
 	}
 /*	private determinePitchToShift (Header head, SampleBuffer samples) {
 		/* Here is where the algorithm determining 
@@ -37,13 +40,16 @@ public class Autotune {
 	} */
 	public SampleBuffer getTuned () {
 		PitchShift shifty = new PitchShift(Obuffer.OBUFFERSIZE);
-		
+		//System.out.println("Got here");
 		double[] doubleData = ShortAndDouble(data);
-		
+		//System.out.println("Got here");
 		shifty.setPitchShift(this.pitchToShift);
-		shifty.smbPitchShift(doubleData, doubleData, pitchToShift, sample.getBufferLength());
+		//System.out.println("Got here");
+		shifty.smbPitchShift(doubleData, doubleData, pitchToShift, length);
+		System.out.println("Got here");
 		SampleBuffer rewritten = new SampleBuffer(sample.getSampleFrequency(),sample.getChannelCount());
 		return rewritten;
+		
 		//shifty.setOversampling(4);
 		//shifty.setSampleRate(sampleRate);
 		//shifty.setFftFrameSize(2048);
