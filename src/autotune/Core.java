@@ -8,15 +8,19 @@ import javazoom.jl.player.*;
 public class Core {
 	
 	public static void main (String args[]) {
+		
+		System.out.println("Program initiated");
 		//sanity check, plays music
 	/*	try {
 			Player playa = new Player(new FileInputStream("/Users/James/Documents/workspace/Audio/Resources/Canon.mp3"));
 			playa.play();
 		} catch (Exception e) { System.out.println(e); } 
 	*/
+		short[] outData = {};
 		try {
 			Bitstream bitStream = new Bitstream(new FileInputStream("/Users/James/Documents/workspace/Audio/Resources/Canon.mp3"));
 			boolean eof = false;
+			
 			while(!eof) {
 				Header head =  bitStream.readFrame();
 				if (head == null) { eof=true; }
@@ -24,27 +28,33 @@ public class Core {
 				
 				SampleBuffer samples = (SampleBuffer)dec.decodeFrame(head, bitStream); 
 				
-	/*			for (int i=0;i<samples.getBufferLength();i++) {
-					System.out.print("before mod : "); System.out.print(array[i]+"\n");
-				} 
-	*/
-				// implement autotune on frame
-				
-				//System.out.println("Got here");
-				
 				Autotune tune = new Autotune(head, samples);
 				SampleBuffer samp = (SampleBuffer)tune.getTuned();    
-
-				System.out.println("Things happened successfully...");
 				
-				System.out.print("after mod : "); System.out.print(samp.getBuffer()[1]+"\n"); 
-	/*
-	 *  unsure how to convert from buffer back to mp3 file 
-	 */
+				samp.getBuffer();
+				short[] nextBlock = samp.getBuffer();
+                outData = concatArrays(outData, nextBlock);
+                bitStream.closeFrame();
+                /*
+                 *  unsure how to convert from buffer back to mp3 file 
+                 */
 			}
 		} catch (Exception e) {
+			//System.out.println(outData);
 			System.out.println(e);
 		} 
+		//System.out.println(outData);
 		
  	}
+	private static short[] concatArrays(short[] A, short[] B) {
+
+        int aLen = A.length;
+        int bLen = B.length;
+        short[] C= new short[aLen+bLen];
+
+        System.arraycopy(A, 0, C, 0, aLen);
+        System.arraycopy(B, 0, C, aLen, bLen);
+
+        return C;
+    }
 }

@@ -45,7 +45,7 @@ public class Autotune {
 		//System.out.println("Got here");
 		shifty.setPitchShift(this.pitchToShift);
 		//System.out.println("Got here");
-		System.out.println(shifty.gOutFIFO);
+		//System.out.println(shifty.gOutFIFO);
 		shifty.smbPitchShift(data, data, 0, length);
 		
 		SampleBuffer rewritten = new SampleBuffer(sample.getSampleFrequency(),sample.getChannelCount());
