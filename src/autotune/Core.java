@@ -18,7 +18,7 @@ public class Core {
 	*/
 		short[] outData = {};
 		try {
-			Bitstream bitStream = new Bitstream(new FileInputStream("/Users/James/Documents/workspace/Audio/Resources/Canon.mp3"));
+			Bitstream bitStream = new Bitstream(new FileInputStream("C:/Users/Asus/Documents/GitHub/AudioSuite/Resources/believe.wav"));
 			boolean eof = false;
 			
 			while(!eof) {
