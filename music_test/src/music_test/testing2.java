@@ -24,8 +24,8 @@ public class testing2
 	public static void main(String[] args)
 			throws Exception
 			{
-		File sourceFile = new File("/Users/melovett2013/Desktop/idk.wav");
-		File targetFile = new File("/Users/melovett2013/Desktop/pleaaase.wav");
+		File sourceFile = new File("believe.wav");
+		File targetFile = new File("pleaaase.wav");
 
 
 		/* Get the type of the source file. We need this information
@@ -56,7 +56,7 @@ public class testing2
 			double[] indata = s1.doubleArray;
 			double[] outdata = new double[indata.length];
 
-			shifter.setPitchShift(.5);
+			shifter.setPitchShift(1);
 			shifter.smbPitchShift(indata, outdata, 0, indata.length);
 
 			ShortAndDouble s2 = new ShortAndDouble(outdata);
