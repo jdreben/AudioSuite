@@ -59,6 +59,7 @@ public class testing2
 			shifter.setPitchShift(1);
 			shifter.smbPitchShift(indata, outdata, 0, indata.length);
 
+
 			ShortAndDouble s2 = new ShortAndDouble(outdata);
 			ByteAndShort b2 = new ByteAndShort(s2.shortArray, false);
 
