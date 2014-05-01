@@ -261,8 +261,8 @@ public class PitchShift {
                                         /* store magnitude and true frequency in analysis arrays */
                                         gAnaMagn[k] = (float) magn;
                                         gAnaFreq[k] = (float) tmp;
-
                                 }
+                                
 
                                 /* ***************** PROCESSING ******************* */
                                 /* this does the actual pitch shifting */
@@ -275,8 +275,8 @@ public class PitchShift {
                                 for (k = 0; k <= fftFrameSize2; k++) { 
                                         index = (int) (k*pitchShift);
                                         if (index <= fftFrameSize2) { 
-                                                gSynMagn[k] = .1f; 
-                                                gSynFreq[k] = 440.f; 
+                                        	gSynMagn[index] += gAnaMagn[k]; 
+                        					gSynFreq[index] = gAnaFreq[k] * pitchShift;  
                                         } 
                                 }
 

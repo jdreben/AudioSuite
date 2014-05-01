@@ -18,13 +18,14 @@ public class testing2
 
 	/** The size of the temporary read buffer, in frames.
 	 */
-	private static final int	BUFFER_LENGTH = 1024;
+	private static final int	BUFFER_LENGTH = 4096;
 	static PitchShift shifter = new PitchShift(44100);
+	static Return_frequency freq = new Return_frequency(44100);
 
 	public static void main(String[] args)
 			throws Exception
 			{
-		File sourceFile = new File("believe.wav");
+		File sourceFile = new File("ChromaticDown523.wav");
 		File targetFile = new File("pleaaase.wav");
 
 
@@ -50,13 +51,30 @@ public class testing2
 			{
 				break;
 			}
+			
+			float[] CKey = {16.35f, 18.35f,20.6f,21.83f,24.5f,27.50f,30.87f,32.70f,36.71f,41.2f,43.65f,49.f,55.f,61.74f,65.41f, 73.42f,82.41f,87.31f,98.0f,110.f,123.47f,130.81f,146.83f,164.81f,174.61f,196.f,220.f,246.94f,261.63f, 293.66f,329.63f,349.23f,392.f,440.f,493.88f,523.25f,587.33f,659.26f,698.46f,783.99f,880.f,987.77f, 1046.5f,1174.66f,1318.51f,1396.91f,1567.98f,1760.f};
 
 			ByteAndShort b1 = new ByteAndShort(abBuffer, false);
 			ShortAndDouble s1 = new ShortAndDouble(b1.shortArray);
 			double[] indata = s1.doubleArray;
 			double[] outdata = new double[indata.length];
-
-			shifter.setPitchShift(1);
+			float [] temp = new float[indata.length];
+			
+			for(int i = 0; i < indata.length; i++)
+			{
+				temp[i] = (float) indata [i];
+			}
+			
+		    System.out.println(freq.DetectPitch(temp, temp.length));
+            float change = 1;
+            float detected = freq.DetectPitch(temp, temp.length);
+            for (int q=0; q<CKey.length; q++) {
+            	if (CKey[q]>detected) {
+            		change = CKey[q]/detected;
+            		break;
+            	}
+            }
+			shifter.setPitchShift(change);
 			shifter.smbPitchShift(indata, outdata, 0, indata.length);
 
 
