@@ -105,8 +105,6 @@ public class testing2
 				targetFileType,
 				targetFile);
 		if (DEBUG) { out("Written bytes: " + nWrittenBytes); }
-
-		System.out.println("done");
 			}
 
 	private static void out(String strMessage)
